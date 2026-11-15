@@ -1,0 +1,120 @@
+{% comment %}
+  register.html – Screen 6: Create account page.
+  Same split-card layout as login. No nav rail.
+{% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create account – Khoj Mitra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+
+<div class="km-auth-wrap">
+  <div class="km-auth-card">
+
+    <!-- Left: branding -->
+    <div class="km-auth-left">
+      <a href="/" class="km-logo mb-24" style="display:inline-flex;">
+        <span class="km-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </span>
+        <span class="km-logo-name" style="margin-left:8px;">Khoj Mitra</span>
+      </a>
+      <h1 class="km-heading">Create your account</h1>
+      <p class="km-subheading" style="margin-bottom:0;">
+        Join the campus community to report items and trade second-hand goods.
+      </p>
+    </div>
+
+    <!-- Right: form -->
+    <div class="km-auth-right">
+
+      {% if messages %}
+      <ul class="km-messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <!-- Full name -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.full_name.id_for_label }}">Full name</label>
+          {{ form.full_name }}
+          {% if form.full_name.errors %}
+            <p class="km-error-text">{{ form.full_name.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- College email -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.college_email.id_for_label }}">College email</label>
+          {{ form.college_email }}
+          <p class="km-helper">Only college email addresses are accepted.</p>
+          {% if form.college_email.errors %}
+            <p class="km-error-text">{{ form.college_email.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Roll number -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.roll_number.id_for_label }}">Roll number</label>
+          {{ form.roll_number }}
+          {% if form.roll_number.errors %}
+            <p class="km-error-text">{{ form.roll_number.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Phone -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.phone.id_for_label }}">Phone</label>
+          {{ form.phone }}
+          {% if form.phone.errors %}
+            <p class="km-error-text">{{ form.phone.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.password1.id_for_label }}">Password</label>
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <p class="km-error-text">{{ form.password1.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Confirm password -->
+        <div class="km-field">
+          <label class="km-label" for="{{ form.password2.id_for_label }}">Confirm password</label>
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <p class="km-error-text">{{ form.password2.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-12 align-center mt-8">
+          <a href="{% url 'login' %}" class="km-btn km-btn-outline">Sign in instead</a>
+          <button type="submit" class="km-btn km-btn-primary">Create account</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

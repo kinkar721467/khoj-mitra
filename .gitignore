@@ -1,0 +1,28 @@
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+
+# ── Django ────────────────────────────────────────────────────────
+*.log
+local_settings.py
+db.sqlite3
+
+# ── Environment secrets ───────────────────────────────────────────
+.env
+
+# ── Media uploads (user photos – stored locally, never in git) ────
+media/
+
+# ── VS Code ───────────────────────────────────────────────────────
+.vscode/
+
+# ── OS files ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

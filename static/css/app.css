@@ -1,0 +1,575 @@
+/* ================================================================
+   app.css – Khoj Mitra design system
+   Google / Material 3 inspired. No Tailwind, no build step.
+   Import Roboto from Google Fonts via base.html CDN link.
+   ================================================================ */
+
+/* ── CSS custom properties (design tokens) ─────────────────────── */
+:root {
+  --km-bg:           #F8FAFD;   /* page background                 */
+  --km-surface:      #FFFFFF;   /* white card / panel background   */
+  --km-primary:      #0B57D0;   /* primary blue (buttons, links)   */
+  --km-primary-tonal:#C2E7FF;   /* tonal blue (Report item button) */
+  --km-active-nav:   #D3E3FD;   /* active nav rail item            */
+  --km-search-bg:    #E9EEF6;   /* search pill background          */
+  --km-outline:      #747775;   /* input borders, secondary btns   */
+  --km-chip-border:  #C4C7C5;   /* chip border                     */
+  --km-chip-sel:     #D3E3FD;   /* selected chip background        */
+
+  /* Status chip colours */
+  --km-success-bg:   #C4EED0;
+  --km-success-fg:   #0D5224;
+  --km-warning-bg:   #FCE8B2;
+  --km-warning-fg:   #5F3B00;
+  --km-info-bg:      #D3E3FD;
+  --km-info-fg:      #041E49;
+  --km-neutral-bg:   #E9EEF6;
+  --km-neutral-fg:   #444746;
+
+  --km-radius-card:  24px;
+  --km-radius-btn:   20px;
+  --km-radius-chip:  8px;
+  --km-radius-input: 8px;
+
+  --km-nav-width:    240px;
+}
+
+/* ── Reset & base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--km-bg);
+  color: #1C1B1F;
+  min-height: 100vh;
+}
+
+a { color: var(--km-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Top bar ────────────────────────────────────────────────────── */
+.km-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: var(--km-surface);
+  border-bottom: 1px solid #E3E3E3;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  z-index: 100;
+}
+
+.km-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.km-logo-icon {
+  width: 40px; height: 40px;
+  background: var(--km-primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+}
+.km-logo-name {
+  font-size: 20px;
+  font-weight: 500;
+  color: #1C1B1F;
+  white-space: nowrap;
+}
+
+/* Search pill */
+.km-search {
+  flex: 1;
+  max-width: 560px;
+  height: 48px;
+  background: var(--km-search-bg);
+  border-radius: 28px;
+  border: none;
+  padding: 0 20px;
+  font-size: 14px;
+  outline: none;
+  color: #1C1B1F;
+}
+.km-search::placeholder { color: #6B6B6B; }
+
+.km-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Bell icon button */
+.km-bell {
+  position: relative;
+  width: 40px; height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #444746;
+  transition: background 0.15s;
+}
+.km-bell:hover { background: var(--km-search-bg); }
+
+.km-bell-badge {
+  position: absolute;
+  top: 4px; right: 4px;
+  min-width: 16px; height: 16px;
+  background: #B3261E;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 3px;
+}
+
+/* Avatar */
+.km-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--km-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ── Navigation rail ────────────────────────────────────────────── */
+.km-rail {
+  position: fixed;
+  top: 64px; left: 0; bottom: 0;
+  width: var(--km-nav-width);
+  background: var(--km-surface);
+  border-right: 1px solid #E3E3E3;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  z-index: 90;
+}
+
+/* "Report item" tonal button at the top of the rail */
+.km-rail-report {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--km-primary-tonal);
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #001849;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.km-rail-report:hover { background: #A8D4F5; text-decoration: none; }
+
+/* Regular nav link */
+.km-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  color: #1C1B1F;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.km-nav-link:hover { background: var(--km-search-bg); text-decoration: none; }
+.km-nav-link.active {
+  background: var(--km-active-nav);
+  font-weight: 500;
+  color: #041E49;
+}
+.km-nav-link svg { flex-shrink: 0; }
+
+/* ── Main content area ──────────────────────────────────────────── */
+.km-layout {
+  display: flex;
+  margin-top: 64px;        /* below top bar */
+}
+
+.km-main {
+  margin-left: var(--km-nav-width);
+  flex: 1;
+  padding: 32px;
+  max-width: 1200px;
+}
+
+/* Hide rail below 800px */
+@media (max-width: 799px) {
+  .km-rail { display: none; }
+  .km-main { margin-left: 0; padding: 16px; }
+}
+
+/* ── White content panel ────────────────────────────────────────── */
+.km-panel {
+  background: var(--km-surface);
+  border-radius: var(--km-radius-card);
+  padding: 32px;
+}
+
+/* ── Page heading ───────────────────────────────────────────────── */
+.km-heading {
+  font-size: 28px;
+  font-weight: 400;
+  color: #1C1B1F;
+  margin-bottom: 4px;
+}
+.km-subheading {
+  font-size: 14px;
+  color: #6B6B6B;
+  margin-bottom: 24px;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────── */
+.km-card {
+  background: var(--km-surface);
+  border-radius: var(--km-radius-card);
+  border: 1px solid #E3E3E3;
+  overflow: hidden;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.km-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+.km-card-body { padding: 16px; }
+.km-card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: var(--km-search-bg);  /* placeholder colour */
+  display: flex; align-items: center; justify-content: center;
+  color: #9AA0A6;
+  font-size: 13px;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.km-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--km-radius-btn);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.km-btn:focus-visible {
+  outline: 3px solid var(--km-primary);
+  outline-offset: 2px;
+}
+
+/* Primary filled (blue) */
+.km-btn-primary {
+  background: var(--km-primary);
+  color: #fff;
+}
+.km-btn-primary:hover { background: #0842A0; box-shadow: 0 2px 8px rgba(11,87,208,0.3); }
+
+/* Outlined secondary */
+.km-btn-outline {
+  background: transparent;
+  color: var(--km-primary);
+  border: 1px solid var(--km-outline);
+}
+.km-btn-outline:hover { background: #EEF2FF; }
+
+/* Tonal (light blue) */
+.km-btn-tonal {
+  background: var(--km-primary-tonal);
+  color: #001849;
+}
+.km-btn-tonal:hover { background: #A8D4F5; }
+
+/* Tonal green (found something) */
+.km-btn-tonal-green {
+  background: #C4EED0;
+  color: #0D5224;
+}
+.km-btn-tonal-green:hover { background: #A6DEB6; }
+
+/* Danger (red) */
+.km-btn-danger {
+  background: #B3261E;
+  color: #fff;
+}
+.km-btn-danger:hover { background: #8C1D18; }
+
+/* ── Chips ──────────────────────────────────────────────────────── */
+.km-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--km-radius-chip);
+  border: 1px solid var(--km-chip-border);
+  background: transparent;
+  font-size: 13px;
+  color: #1C1B1F;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.12s;
+}
+.km-chip:hover { background: var(--km-search-bg); }
+.km-chip.selected, .km-chip:focus { background: var(--km-chip-sel); border-color: var(--km-primary); font-weight: 500; }
+
+/* Status chips (not interactive) */
+.km-status { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+.km-status-success  { background: var(--km-success-bg);  color: var(--km-success-fg); }
+.km-status-warning  { background: var(--km-warning-bg);  color: var(--km-warning-fg); }
+.km-status-info     { background: var(--km-info-bg);     color: var(--km-info-fg); }
+.km-status-neutral  { background: var(--km-neutral-bg);  color: var(--km-neutral-fg); }
+
+/* ── Form inputs ────────────────────────────────────────────────── */
+.km-input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid var(--km-outline);
+  border-radius: var(--km-radius-input);
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+.km-input:focus { border-color: var(--km-primary); border-width: 2px; }
+.km-input::placeholder { color: #9AA0A6; }
+
+textarea.km-input {
+  height: auto;
+  min-height: 100px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+select.km-input { appearance: none; cursor: pointer; }
+
+.km-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #444746;
+  margin-bottom: 4px;
+}
+
+.km-field { margin-bottom: 20px; }
+
+.km-helper {
+  font-size: 12px;
+  color: #6B6B6B;
+  margin-top: 4px;
+}
+
+.km-error-text { color: #B3261E; font-size: 12px; margin-top: 4px; }
+
+/* ── Segmented button (Lost / Found toggle) ─────────────────────── */
+.km-segment {
+  display: inline-flex;
+  border: 1px solid var(--km-outline);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.km-segment-btn {
+  padding: 8px 24px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--km-outline);
+  transition: background 0.15s, color 0.15s;
+}
+.km-segment-btn.active {
+  background: var(--km-primary);
+  color: #fff;
+}
+
+/* ── Score ring (SVG circular progress) ─────────────────────────── */
+.km-score-ring { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.km-score-ring svg { transform: rotate(-90deg); }
+.km-score-ring .ring-bg   { fill: none; stroke: #E3E3E3; }
+.km-score-ring .ring-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 0.5s; }
+.km-score-ring .ring-text { position: absolute; font-size: 13px; font-weight: 700; color: #1C1B1F; }
+
+/* ── Notification rows ──────────────────────────────────────────── */
+.km-notif-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #F0F0F0;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.km-notif-row:hover { background: var(--km-search-bg); }
+.km-notif-row.unread { background: #EEF4FF; }
+.km-notif-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--km-search-bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.km-notif-time { font-size: 12px; color: #9AA0A6; white-space: nowrap; }
+
+/* ── Progress bars (match breakdown) ───────────────────────────── */
+.km-progress-wrap { margin-bottom: 10px; }
+.km-progress-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.km-progress-bar { height: 8px; background: #E3E3E3; border-radius: 4px; overflow: hidden; }
+.km-progress-fill { height: 100%; background: var(--km-primary); border-radius: 4px; }
+
+/* ── Photo drop zone ────────────────────────────────────────────── */
+.km-dropzone {
+  border: 2px dashed var(--km-chip-border);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+  color: #6B6B6B;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.km-dropzone:hover { border-color: var(--km-primary); background: #EEF4FF; }
+
+/* ── Split layout (login / register) ────────────────────────────── */
+.km-auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--km-bg);
+  padding: 24px;
+}
+.km-auth-card {
+  background: var(--km-surface);
+  border-radius: var(--km-radius-card);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  display: flex;
+  overflow: hidden;
+  max-width: 860px;
+  width: 100%;
+}
+.km-auth-left {
+  flex: 1;
+  background: #EEF4FF;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.km-auth-right {
+  flex: 1;
+  padding: 48px 40px;
+}
+@media (max-width: 600px) {
+  .km-auth-card { flex-direction: column; }
+  .km-auth-left { padding: 32px 24px; }
+  .km-auth-right { padding: 24px; }
+}
+
+/* ── Stat cards (admin dashboard) ──────────────────────────────── */
+.km-stat-card {
+  background: var(--km-surface);
+  border: 1px solid #E3E3E3;
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+.km-stat-num { font-size: 36px; font-weight: 400; color: var(--km-primary); }
+.km-stat-label { font-size: 14px; color: #6B6B6B; margin-top: 4px; }
+
+/* ── Messages (Django flash messages) ─────────────────────────── */
+.km-messages { list-style: none; padding: 0; margin-bottom: 16px; }
+.km-messages li {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.km-messages .success { background: var(--km-success-bg); color: var(--km-success-fg); }
+.km-messages .error   { background: #FDDBD8; color: #8C1D18; }
+.km-messages .info    { background: var(--km-info-bg);    color: var(--km-info-fg); }
+.km-messages .warning { background: var(--km-warning-bg); color: var(--km-warning-fg); }
+
+/* ── Pagination ─────────────────────────────────────────────────── */
+.km-pagination { display: flex; gap: 4px; align-items: center; margin-top: 24px; }
+.km-page-btn {
+  min-width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--km-primary);
+  text-decoration: none;
+  transition: background 0.12s;
+}
+.km-page-btn:hover { background: var(--km-search-bg); }
+.km-page-btn.current { background: var(--km-primary); color: #fff; }
+.km-page-btn.disabled { color: #C4C7C5; cursor: default; }
+
+/* ── Breadcrumb ─────────────────────────────────────────────────── */
+.km-breadcrumb { font-size: 13px; color: #6B6B6B; margin-bottom: 16px; }
+.km-breadcrumb a { color: var(--km-primary); }
+.km-breadcrumb span { margin: 0 6px; }
+
+/* ── Tables (moderation queue) ──────────────────────────────────── */
+.km-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.km-table th { text-align: left; padding: 10px 14px; font-weight: 500; color: #444746; border-bottom: 2px solid #E3E3E3; }
+.km-table td { padding: 12px 14px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
+.km-table tr:hover td { background: var(--km-search-bg); }
+
+/* ── Utility helpers ─────────────────────────────────────────────── */
+.d-flex { display: flex; }
+.align-center { align-items: center; }
+.gap-8  { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-24 { gap: 24px; }
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.text-muted { color: #6B6B6B; font-size: 13px; }
+.text-sm    { font-size: 13px; }
+.fw-500     { font-weight: 500; }
+.w-100      { width: 100%; }
+.flex-1     { flex: 1; }
+
+/* Grid for cards */
+.km-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}

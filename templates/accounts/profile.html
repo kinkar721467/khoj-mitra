@@ -1,0 +1,37 @@
+{% comment %}
+  profile.html – User profile page.
+  Shows name, email, roll number, and links to their items and listings.
+{% endcomment %}
+{% extends "base.html" %}
+{% block title %}Profile – Khoj Mitra{% endblock %}
+
+{% block content %}
+<div class="km-panel">
+  <h1 class="km-heading">My profile</h1>
+  <p class="km-subheading">Your account details and activity.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:600px;">
+    <div>
+      <div class="km-label">Full name</div>
+      <div>{{ profile_user.get_full_name }}</div>
+    </div>
+    <div>
+      <div class="km-label">College email</div>
+      <div>{{ profile_user.college_email }}</div>
+    </div>
+    <div>
+      <div class="km-label">Roll number</div>
+      <div>{{ profile_user.roll_number|default:"Not set" }}</div>
+    </div>
+    <div>
+      <div class="km-label">Phone</div>
+      <div>{{ profile_user.phone|default:"Not set" }}</div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-12 mt-24">
+    <a href="{% url 'home' %}" class="km-btn km-btn-outline">Back to home</a>
+    <a href="{% url 'logout' %}" class="km-btn km-btn-danger">Sign out</a>
+  </div>
+</div>
+{% endblock %}

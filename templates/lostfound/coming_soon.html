@@ -1,0 +1,19 @@
+{% comment %}
+  coming_soon.html – Placeholder for pages being built in later phases.
+  Extends base.html so nav and top bar are visible.
+{% endcomment %}
+{% extends "base.html" %}
+{% block title %}{{ page }} – Khoj Mitra{% endblock %}
+
+{% block content %}
+<div class="km-panel" style="text-align:center; padding: 64px 32px;">
+  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#C2E7FF" stroke-width="1.5" style="margin-bottom:24px;">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="12"/>
+    <line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+  <h1 class="km-heading" style="margin-bottom:8px;">{{ page }}</h1>
+  <p class="km-subheading">This section is being built. Coming in the next phase!</p>
+  <a href="{% url 'home' %}" class="km-btn km-btn-primary mt-24">Go to Home</a>
+</div>
+{% endblock %}
